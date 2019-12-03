@@ -1,0 +1,15 @@
+import pandas as pd
+data = {"Student": ["Ice Bear","Panda","Grizzly"], "Math":[80,95,79]}
+df1 = pd.DataFrame(data, columns=["Student","Math"])
+datb = {"Student": ["Ice Bear","Panda","Grizzly"], "Electronics":[85,81,83]}
+df2 = pd.DataFrame(datb, columns=["Student","Electronics"])
+datc = {"Student": ["Ice Bear","Panda","Grizzly"], "GEAS":[90,79,93]}
+df3 = pd.DataFrame(datc, columns=["Student","GEAS"])
+datd = {"Student": ["Ice Bear","Panda","Grizzly"], "ESAT":[93,89,88]}
+df4 = pd.DataFrame(datd, columns=["Student","ESAT"])
+df5 = pd.merge(df1,df2, how="left", on="Student")
+df6 = pd.merge(df5,df3, how="left", on="Student")
+df7 = pd.merge(df6,df4, how="left", on="Student")
+long = pd.melt(df7, id_vars="Student", value_vars=["Math","Electronics","GEAS","ESAT"])
+rename = long.rename(columns={"variable":"Subject", "value":"Grades"})
+sort = rename.sort_values("Student")
